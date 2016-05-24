@@ -59,6 +59,7 @@
 */
 
 - (IBAction)hit:(id)sender {
+    [self.game dealCardToPlayer];
 }
 
 - (IBAction)deal:(id)sender {
@@ -75,6 +76,10 @@
     [self.houseCard1 setHidden:NO];
     self.houseCard2.text = [house.cardsInHand[1] cardLabel];
     [self.houseCard2 setHidden:NO];
+    if (player.handscore != 21 && house.handscore !=21) {
+        [self.hitButton setEnabled:YES];
+        [self.stayButton setEnabled:YES];
+    }
 }
 
 - (IBAction)stay:(id)sender {

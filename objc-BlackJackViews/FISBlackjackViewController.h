@@ -37,5 +37,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *playerWins;
 @property (weak, nonatomic) IBOutlet UILabel *playerLosses;
 @property (nonatomic) FISBlackjackGame *game;
+@property (weak, nonatomic) IBOutlet UIButton *hitButton;
+@property (weak, nonatomic) IBOutlet UIButton *stayButton;
 
 @end
