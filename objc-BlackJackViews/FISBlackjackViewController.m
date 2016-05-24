@@ -40,6 +40,7 @@
     [self.playerCard5 setHidden:YES];
     [self.playerBust setHidden:YES];
     [self.playerBlackjack setHidden:YES];
+    self.game = [[FISBlackjackGame alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,6 +63,18 @@
 
 - (IBAction)deal:(id)sender {
     [self.game dealNewRound];
+    FISBlackjackPlayer *player = self.game.player;
+    FISBlackjackPlayer *house = self.game.house;
+
+    self.playerCard1.text = [player.cardsInHand[0] cardLabel];
+    [self.playerCard1 setHidden:NO];
+    self.playerCard2.text = [player.cardsInHand[1] cardLabel];
+    [self.playerCard2 setHidden:NO];
+
+    self.houseCard1.text = [house.cardsInHand[0] cardLabel];
+    [self.houseCard1 setHidden:NO];
+    self.houseCard2.text = [house.cardsInHand[1] cardLabel];
+    [self.houseCard2 setHidden:NO];
 }
 
 - (IBAction)stay:(id)sender {
