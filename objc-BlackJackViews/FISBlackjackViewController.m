@@ -63,6 +63,13 @@
     card.text = [player.cardsInHand[cardIndex] cardLabel];
     [card setHidden:NO];
     self.playerScore.text = [NSString stringWithFormat:@"Score: %lu", player.handscore];
+    if (player.busted) {
+        [self.hitButton setEnabled:NO];
+        [self.stayButton setEnabled:NO];
+        [self.playerBust setHidden:NO];
+        self.winner.text = @"You Lost!";
+        [self.winner setHidden:NO];
+    }
 }
 
 - (IBAction)deal:(id)sender {
