@@ -16,6 +16,7 @@
 - (IBAction)deal:(id)sender;
 - (IBAction)hit:(id)sender;
 - (IBAction)stay:(id)sender;
+- (void)keepScore;
 
 @end
 
@@ -55,6 +56,23 @@
 }
 */
 
+- (void)keepScore {
+    FISBlackjackPlayer *player = self.game.player;
+    FISBlackjackPlayer *house = self.game.house;
+    if (player.wins > 0) {
+        self.playerWins.text = [NSString stringWithFormat:@"Wins %lu", player.wins];
+    }
+    if (player.losses > 0) {
+        self.playerLosses.text = [NSString stringWithFormat:@"Losses %lu", player.losses];
+    }
+    if (house.wins > 0) {
+        self.houseWins.text = [NSString stringWithFormat:@"Wins %lu", house.wins];
+    }
+    if (house.losses > 0) {
+        self.houseLosses.text = [NSString stringWithFormat:@"Losses %lu", house.losses];
+    }
+}
+
 - (IBAction)hit:(id)sender {
     [self.game dealCardToPlayer];
     FISBlackjackPlayer *player = self.game.player;
@@ -70,6 +88,7 @@
         self.winner.text = @"You Lost!";
         [self.winner setHidden:NO];
         [self.game incrementWinsAndLossesForHouseWins:YES];
+        [self keepScore];
     }
 }
 
@@ -86,18 +105,6 @@
     }
     for (UILabel *statusLabel in self.gameStatusLabels) {
         [statusLabel setHidden:YES];
-    }
-    if (player.wins > 0) {
-        self.playerWins.text = [NSString stringWithFormat:@"Wins %lu", player.wins];
-    }
-    if (player.losses > 0) {
-        self.playerLosses.text = [NSString stringWithFormat:@"Losses %lu", player.losses];
-    }
-    if (house.wins > 0) {
-        self.houseWins.text = [NSString stringWithFormat:@"Wins %lu", house.wins];
-    }
-    if (house.losses > 0) {
-        self.houseLosses.text = [NSString stringWithFormat:@"Losses %lu", house.losses];
     }
     [self.game.deck resetDeck];
     [self.game dealNewRound];
@@ -120,11 +127,13 @@
         [self.winner setHidden:NO];
         [self.playerBlackjack setHidden:NO];
         [self.game incrementWinsAndLossesForHouseWins:NO];
+        [self keepScore];
     } else if (house.blackjack) {
         self.winner.text = @"You Lost!";
         [self.winner setHidden:NO];
         [self.houseBlackjack setHidden:NO];
         [self.game incrementWinsAndLossesForHouseWins:YES];
+        [self keepScore];
     } else {
         [self.hitButton setEnabled:YES];
         [self.stayButton setEnabled:YES];
@@ -159,5 +168,6 @@
         }
         [self.game incrementWinsAndLossesForHouseWins:NO];
     }
+    [self keepScore];
 }
 @end
