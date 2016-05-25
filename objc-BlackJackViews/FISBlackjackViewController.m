@@ -12,6 +12,7 @@
 
 @property (nonatomic) NSArray *houseCardLabels;
 @property (nonatomic) NSArray *playerCardLabels;
+@property (nonatomic) NSArray *gameStatusLabels;
 - (IBAction)deal:(id)sender;
 - (IBAction)hit:(id)sender;
 - (IBAction)stay:(id)sender;
@@ -23,23 +24,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.winner setHidden:YES];
-    [self.houseScore setHidden:YES];
-    [self.houseStayed setHidden:YES];
     self.houseCardLabels = [NSArray arrayWithObjects:self.houseCard1, self.houseCard2, self.houseCard3, self.houseCard4, self.houseCard5, nil];
     for (UILabel *cardLabel in self.houseCardLabels) {
         [cardLabel setHidden:YES];
     }
-    [self.houseBust setHidden:YES];
-    [self.houseBlackjack setHidden:YES];
-    self.playerScore.text = @"Score: 0";
-    [self.playerStayed setHidden:YES];
     self.playerCardLabels = [NSArray arrayWithObjects:self.playerCard1, self.playerCard2, self.playerCard3, self.playerCard4, self.playerCard5, nil];
     for (UILabel *cardLabel in self.playerCardLabels) {
         [cardLabel setHidden:YES];
     }
-    [self.playerBust setHidden:YES];
-    [self.playerBlackjack setHidden:YES];
+    self.gameStatusLabels = [NSArray arrayWithObjects:self.winner, self.houseScore, self.houseStayed, self.houseBust, self.houseBlackjack, self.playerStayed, self.playerBust, self.playerBlackjack, nil];
+    for (UILabel *statusLabel in self.gameStatusLabels) {
+        [statusLabel setHidden:YES];
+    }
+    self.playerScore.text = @"Score: 0";
     self.game = [[FISBlackjackGame alloc] init];
 }
 
@@ -78,6 +75,9 @@
     }
     for (UILabel *cardLabel in self.houseCardLabels) {
         [cardLabel setHidden:YES];
+    }
+    for (UILabel *statusLabel in self.gameStatusLabels) {
+        [statusLabel setHidden:YES];
     }
     [self.game.deck resetDeck];
     [self.game dealNewRound];
