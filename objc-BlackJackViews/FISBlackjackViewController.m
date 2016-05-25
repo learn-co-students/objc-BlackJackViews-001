@@ -95,7 +95,13 @@
     self.houseScore.text = [NSString stringWithFormat:@"Score: %lu", house.handscore];
     [self.houseScore setHidden:NO];
 
-    if (player.handscore != 21 && house.handscore !=21) {
+    if (player.blackjack) {
+        self.winner.text = @"You Won!";
+        [self.winner setHidden:NO];
+    } else if (house.blackjack) {
+        self.winner.text = @"You Lost!";
+        [self.winner setHidden:NO];
+    } else {
         [self.hitButton setEnabled:YES];
         [self.stayButton setEnabled:YES];
     }
