@@ -60,6 +60,12 @@
 
 - (IBAction)hit:(id)sender {
     [self.game dealCardToPlayer];
+    FISBlackjackPlayer *player = self.game.player;
+    NSUInteger cardIndex = [player.cardsInHand count] - 1;
+    UILabel *card = self.playerCardLabels[cardIndex];
+    card.text = [player.cardsInHand[cardIndex] cardLabel];
+    [card setHidden:NO];
+    self.playerScore.text = [NSString stringWithFormat:@"Score: %lu", player.handscore];
 }
 
 - (IBAction)deal:(id)sender {
