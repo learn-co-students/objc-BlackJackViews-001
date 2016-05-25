@@ -69,6 +69,7 @@
         [self.playerBust setHidden:NO];
         self.winner.text = @"You Lost!";
         [self.winner setHidden:NO];
+        [self.game incrementWinsAndLossesForHouseWins:YES];
     }
 }
 
@@ -85,6 +86,18 @@
     }
     for (UILabel *statusLabel in self.gameStatusLabels) {
         [statusLabel setHidden:YES];
+    }
+    if (player.wins > 0) {
+        self.playerWins.text = [NSString stringWithFormat:@"Wins %lu", player.wins];
+    }
+    if (player.losses > 0) {
+        self.playerLosses.text = [NSString stringWithFormat:@"Losses %lu", player.losses];
+    }
+    if (house.wins > 0) {
+        self.houseWins.text = [NSString stringWithFormat:@"Wins %lu", house.wins];
+    }
+    if (house.losses > 0) {
+        self.houseLosses.text = [NSString stringWithFormat:@"Losses %lu", house.losses];
     }
     [self.game.deck resetDeck];
     [self.game dealNewRound];
@@ -106,10 +119,12 @@
         self.winner.text = @"You Won!";
         [self.winner setHidden:NO];
         [self.playerBlackjack setHidden:NO];
+        [self.game incrementWinsAndLossesForHouseWins:NO];
     } else if (house.blackjack) {
         self.winner.text = @"You Lost!";
         [self.winner setHidden:NO];
         [self.houseBlackjack setHidden:NO];
+        [self.game incrementWinsAndLossesForHouseWins:YES];
     } else {
         [self.hitButton setEnabled:YES];
         [self.stayButton setEnabled:YES];
@@ -133,6 +148,7 @@
         self.winner.text = @"You Lost!";
         [self.winner setHidden:NO];
         [self.houseStayed setHidden:NO];
+        [self.game incrementWinsAndLossesForHouseWins:YES];
     } else {
         self.winner.text = @"You Won!";
         [self.winner setHidden:NO];
@@ -141,6 +157,7 @@
         } else {
             [self.houseStayed setHidden:NO];
         }
+        [self.game incrementWinsAndLossesForHouseWins:NO];
     }
 }
 @end
