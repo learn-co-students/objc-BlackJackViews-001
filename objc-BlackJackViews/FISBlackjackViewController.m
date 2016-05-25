@@ -63,9 +63,18 @@
 }
 
 - (IBAction)deal:(id)sender {
-    [self.game dealNewRound];
     FISBlackjackPlayer *player = self.game.player;
     FISBlackjackPlayer *house = self.game.house;
+    [player resetForNewGame];
+    [house resetForNewGame];
+    for (UILabel *cardLabel in self.playerCardLabels) {
+        [cardLabel setHidden:YES];
+    }
+    for (UILabel *cardLabel in self.houseCardLabels) {
+        [cardLabel setHidden:YES];
+    }
+    [self.game.deck resetDeck];
+    [self.game dealNewRound];
 
     self.playerCard1.text = [player.cardsInHand[0] cardLabel];
     [self.playerCard1 setHidden:NO];
