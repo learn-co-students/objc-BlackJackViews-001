@@ -108,5 +108,24 @@
 }
 
 - (IBAction)stay:(id)sender {
+    [self.hitButton setEnabled:NO];
+    [self.stayButton setEnabled:NO];
+    [self.playerStayed setHidden:NO];
+    FISBlackjackPlayer *house = self.game.house;
+    while (house.shouldHit){
+        [self.game dealCardToHouse];
+        NSUInteger cardIndex = [house.cardsInHand count] - 1;
+        UILabel *card = self.houseCardLabels[cardIndex];
+        card.text = [house.cardsInHand[cardIndex] cardLabel];
+        [card setHidden:NO];
+        self.houseScore.text = [NSString stringWithFormat:@"Score: %lu", house.handscore];
+    }
+    if (self.game.houseWins) {
+        self.winner.text = @"You Lost!";
+        [self.winner setHidden:NO];
+    } else {
+        self.winner.text = @"You Won!";
+        [self.winner setHidden:NO];
+    }
 }
 @end
