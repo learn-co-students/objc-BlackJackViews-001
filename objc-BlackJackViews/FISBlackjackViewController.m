@@ -105,9 +105,11 @@
     if (player.blackjack) {
         self.winner.text = @"You Won!";
         [self.winner setHidden:NO];
+        [self.playerBlackjack setHidden:NO];
     } else if (house.blackjack) {
         self.winner.text = @"You Lost!";
         [self.winner setHidden:NO];
+        [self.houseBlackjack setHidden:NO];
     } else {
         [self.hitButton setEnabled:YES];
         [self.stayButton setEnabled:YES];
@@ -130,9 +132,15 @@
     if (self.game.houseWins) {
         self.winner.text = @"You Lost!";
         [self.winner setHidden:NO];
+        [self.houseStayed setHidden:NO];
     } else {
         self.winner.text = @"You Won!";
         [self.winner setHidden:NO];
+        if (house.busted) {
+            [self.houseBust setHidden:NO];
+        } else {
+            [self.houseStayed setHidden:NO];
+        }
     }
 }
 @end
