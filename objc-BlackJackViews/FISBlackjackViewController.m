@@ -24,7 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.winner setHidden:YES];
-    self.houseScore.text = @"Score: 0";
+    [self.houseScore setHidden:YES];
     [self.houseStayed setHidden:YES];
     self.houseCardLabels = [NSArray arrayWithObjects:self.houseCard1, self.houseCard2, self.houseCard3, self.houseCard4, self.houseCard5, nil];
     for (UILabel *cardLabel in self.houseCardLabels) {
@@ -93,6 +93,7 @@
     self.houseCard2.text = [house.cardsInHand[1] cardLabel];
     [self.houseCard2 setHidden:NO];
     self.houseScore.text = [NSString stringWithFormat:@"Score: %lu", house.handscore];
+    [self.houseScore setHidden:NO];
 
     if (player.handscore != 21 && house.handscore !=21) {
         [self.hitButton setEnabled:YES];
